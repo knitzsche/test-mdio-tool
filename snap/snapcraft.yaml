@@ -1,0 +1,27 @@
+name: test-mdio-tool
+base: core20
+version: '0.1'
+summary: Change eth led
+description: |
+  Boilerplate.
+
+grade: stable
+confinement: strict
+
+apps:
+  led-on:
+    command: bin/on.sh
+    plugs: [ network, network-control ]
+  led-off:
+    command: bin/off.sh
+    plugs: [ network, network-control ]
+
+parts:
+  launchers:
+    plugin: dump
+    source: launchers
+  mdio-tool:
+    plugin: cmake
+    source: https://github.com/PieVo/mdio-tool.git
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
